@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace GameModel
@@ -15,6 +16,9 @@ namespace GameModel
         {
             Activate(true);
         }
+
+        protected virtual void Update(){}
+
 
         protected abstract void Init();
 

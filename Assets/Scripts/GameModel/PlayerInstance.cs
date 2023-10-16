@@ -6,9 +6,11 @@ namespace GameModel
     {
         [SerializeField] private InputManager input;
 
-        private void Update()
+        protected override void Update()
         {
-            movement.Move(transform.forward * input.GetMovementInput().y + transform.right * input.GetMovementInput().x);
+            base.Update();
+            movementDir = transform.forward * input.GetMovementInput().y + transform.right * input.GetMovementInput().x;
+            //Debug.Log($"Movement Dir: {movementDir}");
         }
     }
 }
