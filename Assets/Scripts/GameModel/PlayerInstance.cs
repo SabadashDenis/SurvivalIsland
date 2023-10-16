@@ -9,6 +9,7 @@ namespace GameModel
         protected override void Update()
         {
             base.Update();
+            
             movementDir = transform.forward * input.GetMovementInput().y + transform.right * input.GetMovementInput().x;
             //Debug.Log($"Movement Dir: {movementDir}");
         }

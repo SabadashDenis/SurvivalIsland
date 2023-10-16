@@ -5,14 +5,15 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    [SerializeField] private float movementSmoothSpeed = 1f;
     private PlayerInputActions playerInput;
     private InputAction move;
     private InputAction run;
 
-    private float moveSpeed = 5f;
-    private float moveSpeedMult = 1f;
-
     private Vector2 dir = Vector2.zero;
+
+    private float xSpeed = 0f;
+    private float ySpeed = 0f;
 
     private void Awake()
     {
@@ -35,8 +36,19 @@ public class InputManager : MonoBehaviour
 
     private void Run(InputAction.CallbackContext context)
     {
-        moveSpeedMult = 2f;
+        //moveSpeedMult = 2f;
     }
 
-    public Vector2 GetMovementInput() => move != null && move.enabled ? move.ReadValue<Vector2>() : Vector2.zero;
+    public Vector2 GetMovementInput()
+    {
+        var inputVector = move.ReadValue<Vector2>();
+
+        xSpeed = Mathf.Lerp(xSpeed, inputVector.x, Time.deltaTime * movementSmoothSpeed);
+        ySpeed = Mathf.Lerp(ySpeed, inputVector.y, Time.deltaTime * movementSmoothSpeed);
+
+        inputVector.x = xSpeed;
+        inputVector.y = ySpeed;
+
+        return inputVector;
+    }
 }
