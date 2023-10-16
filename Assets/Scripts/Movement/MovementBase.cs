@@ -8,9 +8,11 @@ namespace Movement
         [SerializeField] protected CharacterController controller;
         [SerializeField] protected float moveSpeed = 2f;
 
+        protected Vector3 gravity = Vector3.down * 9.8f;
+
         public void Move(Vector3 dir)
         {
-            controller.Move(dir * moveSpeed * Time.deltaTime);
+            controller.Move((gravity + dir * moveSpeed) * Time.deltaTime);
         }
     }
 }
