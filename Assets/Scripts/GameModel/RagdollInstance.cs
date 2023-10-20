@@ -9,7 +9,7 @@ namespace GameModel
         protected override void Update()
         {
             base.Update();
-            animController.TranslateCharacterSpeed(movementDir);
+            animController.TranslateCharacterSpeed(movementDir.z, movementDir.x);
         }
     }
 }
