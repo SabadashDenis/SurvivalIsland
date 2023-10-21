@@ -8,6 +8,7 @@ namespace GameModel
         [SerializeField] private InputManager input;
         [SerializeField] private CameraInstance playerCam;
         [SerializeField] private Transform camFollowTarget;
+        [SerializeField] private float runSpeed = 2f;
 
         protected override void Init()
         {
@@ -19,9 +20,21 @@ namespace GameModel
         {
             base.Update();
 
-            animController.TranslateCharacterSpeed(input.GetMovementInput().y, input.GetMovementInput().x);
+            if (Input.GetKey(KeyCode.LeftShift) && input.GetMovementInput().y > 0)
+            {
+                
+                animController.TranslateCharacterSpeed(input.GetMovementInput().y * runSpeed,
+                    input.GetMovementInput().x * runSpeed);
+                movementDir = (transform.forward * input.GetMovementInput().y + transform.right * input.GetMovementInput().x) * runSpeed;
+            }
+            else
+            {
+                animController.TranslateCharacterSpeed(input.GetMovementInput().y, input.GetMovementInput().x);
+                movementDir = transform.forward * input.GetMovementInput().y + transform.right * input.GetMovementInput().x;
+
+            }
+
             RotatePlayer();
-            movementDir = transform.forward * input.GetMovementInput().y + transform.right * input.GetMovementInput().x;
             playerCam.FollowTarget(camFollowTarget);
         }
 
