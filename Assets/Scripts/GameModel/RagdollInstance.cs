@@ -11,5 +11,11 @@ namespace GameModel
             base.Update();
             animController.TranslateCharacterSpeed(movementDir.z, movementDir.x);
         }
+
+        protected override void Jump()
+        {
+            base.Jump();
+            animController.Jump();
+        }
     }
 }

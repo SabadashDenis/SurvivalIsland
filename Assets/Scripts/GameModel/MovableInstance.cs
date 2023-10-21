@@ -16,7 +16,7 @@ namespace GameModel
             movement.Move(movementDir);
         }
 
-        protected void Jump()
+        protected virtual void Jump()
         {
             movement.Jump();
         }

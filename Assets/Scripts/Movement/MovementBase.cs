@@ -29,7 +29,7 @@ namespace Movement
                 return;
             }
 
-            gravity *=  1 + Time.deltaTime;
+            gravity *=  1 + Time.deltaTime * 3f;
         }
 
         private void CalculateJump()

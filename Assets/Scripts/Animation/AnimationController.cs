@@ -7,18 +7,12 @@ public class AnimationController : MonoBehaviour
 
     public void TranslateCharacterSpeed(float forward, float right)
     {
-        animator.SetFloat("Y", forward );
-        animator.SetFloat("X", right );
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        animator.SetFloat("Y", forward);
+        animator.SetFloat("X", right);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Jump()
     {
-        
+        animator.Play("Jump");
     }
 }
