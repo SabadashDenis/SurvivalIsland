@@ -27,5 +27,10 @@ namespace GameModel
             isActive = condition;
             gameObject.SetActive(condition);
         }
+
+        protected virtual void OnDestroy()
+        {
+            isActive = false;
+        }
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,11 +8,13 @@ public class InputManager : MonoBehaviour
     private PlayerInputActions playerInput;
     private InputAction move;
     private InputAction jump;
+    private InputAction switchInventory;
 
     private float xSpeed = 0f;
     private float ySpeed = 0f;
     
     public Action OnJumpInput;
+    public Action OnSwitchInventory;
 
     private void Awake()
     {
@@ -24,11 +25,14 @@ public class InputManager : MonoBehaviour
     {
         move = playerInput.Movement.Move;
         jump = playerInput.Movement.Jump;
+        switchInventory = playerInput.Interactions.SwitchInventory;
         
         move.Enable();
         jump.Enable();
+        switchInventory.Enable();
         
         jump.performed += Jump;
+        switchInventory.performed += SwitchInventory;
     }
 
     private void OnDisable()
@@ -37,6 +41,7 @@ public class InputManager : MonoBehaviour
         jump.Disable();
         
         jump.performed -= Jump;
+        switchInventory.performed -= SwitchInventory;
     }
 
     public Vector2 GetMovementInput()
@@ -55,5 +60,10 @@ public class InputManager : MonoBehaviour
     private void Jump(InputAction.CallbackContext context)
     {
         OnJumpInput?.Invoke();
+    }
+
+    private void SwitchInventory(InputAction.CallbackContext context)
+    {
+        OnSwitchInventory?.Invoke();
     }
 }

@@ -9,8 +9,8 @@ namespace GameModel
 
         protected override void Init()
         {
-            //Cursor.lockState = CursorLockMode.Locked;
-            //Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         
         public void FollowTarget(Transform target)

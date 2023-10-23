@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 
 namespace GameModel
@@ -8,12 +7,14 @@ namespace GameModel
         [SerializeField] private InputManager input;
         [SerializeField] private CameraInstance playerCam;
         [SerializeField] private Transform camFollowTarget;
+        [SerializeField] private Inventory inventory;
         [SerializeField] private float runSpeed = 2f;
 
         protected override void Init()
         {
             base.Init();
             input.OnJumpInput += Jump;
+            input.OnSwitchInventory += inventory.Switch;
         }
 
         protected override void Update()
@@ -34,10 +35,10 @@ namespace GameModel
                               transform.right * input.GetMovementInput().x;
             }
 
-            RotatePlayer();
-
             if (Cursor.lockState == CursorLockMode.Locked)
-                playerCam.FollowTarget(camFollowTarget);
+                RotatePlayer();
+
+            playerCam.FollowTarget(camFollowTarget);
         }
 
         private void RotatePlayer()
@@ -45,9 +46,16 @@ namespace GameModel
             float rotateHorizontal = Input.GetAxis("Mouse X");
             float rotateVertical = Input.GetAxis("Mouse Y");
             transform.RotateAround(transform.position, Vector3.up,
-                rotateHorizontal); //use transform.Rotate(-transform.up * rotateHorizontal * sensitivity) instead if you dont want the camera to rotate around the player
+                rotateHorizontal);
             camFollowTarget.RotateAround(transform.position + Vector3.up, -camFollowTarget.right,
-                rotateVertical); //use transform.Rotate(-transform.up * rotateHorizontal * sensitivity) instead if you dont want the camera to rotate around the player
+                rotateVertical);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            input.OnJumpInput -= Jump;
+            input.OnSwitchInventory -= inventory.Switch;
         }
     }
 }
