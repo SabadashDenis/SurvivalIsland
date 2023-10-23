@@ -22,20 +22,22 @@ namespace GameModel
 
             if (Input.GetKey(KeyCode.LeftShift) && input.GetMovementInput().y > 0)
             {
-                
                 animController.TranslateCharacterSpeed(input.GetMovementInput().y * runSpeed,
                     input.GetMovementInput().x * runSpeed);
-                movementDir = (transform.forward * input.GetMovementInput().y + transform.right * input.GetMovementInput().x) * runSpeed;
+                movementDir = (transform.forward * input.GetMovementInput().y +
+                               transform.right * input.GetMovementInput().x) * runSpeed;
             }
             else
             {
                 animController.TranslateCharacterSpeed(input.GetMovementInput().y, input.GetMovementInput().x);
-                movementDir = transform.forward * input.GetMovementInput().y + transform.right * input.GetMovementInput().x;
-
+                movementDir = transform.forward * input.GetMovementInput().y +
+                              transform.right * input.GetMovementInput().x;
             }
 
             RotatePlayer();
-            playerCam.FollowTarget(camFollowTarget);
+
+            if (Cursor.lockState == CursorLockMode.Locked)
+                playerCam.FollowTarget(camFollowTarget);
         }
 
         private void RotatePlayer()
