@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameModel
 {
@@ -7,14 +8,14 @@ namespace GameModel
         [SerializeField] private InputManager input;
         [SerializeField] private CameraInstance playerCam;
         [SerializeField] private Transform camFollowTarget;
-        [SerializeField] private Inventory inventory;
+        [FormerlySerializedAs("inventory")] [SerializeField] private InventoryManager inventoryManager;
         [SerializeField] private float runSpeed = 2f;
 
         protected override void Init()
         {
             base.Init();
             input.OnJumpInput += Jump;
-            input.OnSwitchInventory += inventory.Switch;
+            input.OnSwitchInventory += inventoryManager.Switch;
         }
 
         protected override void Update()
@@ -55,7 +56,7 @@ namespace GameModel
         {
             base.OnDestroy();
             input.OnJumpInput -= Jump;
-            input.OnSwitchInventory -= inventory.Switch;
+            input.OnSwitchInventory -= inventoryManager.Switch;
         }
     }
 }
