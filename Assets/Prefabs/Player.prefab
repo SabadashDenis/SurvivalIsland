@@ -1022,6 +1022,8 @@ MonoBehaviour:
   input: {fileID: 7922194930511355190}
   playerCam: {fileID: 0}
   camFollowTarget: {fileID: 9145366547961382812}
+  inventoryManager: {fileID: 0}
+  itemAttachPoint: {fileID: 4811644909248200123}
   runSpeed: 2
 --- !u!114 &7922194930511355190
 MonoBehaviour:
@@ -2062,6 +2064,7 @@ Transform:
   - {fileID: 1728943075011812618}
   - {fileID: 1728943075011812626}
   - {fileID: 1728943075011812720}
+  - {fileID: 4811644909248200123}
   m_Father: {fileID: 1728943075011812658}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2176,6 +2179,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1728943075002528458}
+--- !u!1 &5255821253723854258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4811644909248200123}
+  m_Layer: 0
+  m_Name: ItemAttachPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4811644909248200123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5255821253723854258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.139, y: 0.037, z: -0.019}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1728943075011812634}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5609581921448468632
 GameObject:
   m_ObjectHideFlags: 0

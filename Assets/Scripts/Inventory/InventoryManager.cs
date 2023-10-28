@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UsableItems;
 
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private int maxStackCount;
     [SerializeField] private GameObject mainInventory;
     [SerializeField] private List<InventorySlot> inventorySlots;
-    [SerializeField] private InventoryItem inventoryItemPrefab;
 
     private int selectedSlot = -1;
+    private UsableItemBase selectedItem;
 
     private void Start()
     {
@@ -38,6 +39,18 @@ public class InventoryManager : MonoBehaviour
 
         inventorySlots[slotIndex].Select();
         selectedSlot = slotIndex;
+
+        var item = GetSelectedItem();
+        if (item != null)
+        {
+            if (selectedItem != null)
+            {
+                Destroy(selectedItem.gameObject);
+                selectedItem = null;
+            }
+
+            selectedItem = Instantiate(item.gameItemPrefab, GameReferences.I.GetPlayer.GetItemAttachPoint);
+        }
     }
 
     public bool AddItem(Item item)
@@ -49,10 +62,10 @@ public class InventoryManager : MonoBehaviour
                 SpawnNewItem(item, slot);
                 return true;
             }
-            
+
             if ( slot.transform.childCount > 0 && slot.transform.GetChild(0).TryGetComponent(out InventoryItem slotItem))
             {
-                if (item == slotItem.GetCurrentItem && item.isStackable && slotItem.CurrentItemCount < maxStackCount)
+                if (item.inventoryItemPrefab == slotItem && item.isStackable && slotItem.CurrentItemCount < maxStackCount)
                 {
                     slotItem.CurrentItemCount++;
                     slotItem.RefreshCount();
@@ -67,7 +80,7 @@ public class InventoryManager : MonoBehaviour
 
     private void SpawnNewItem(Item item, InventorySlot slot)
     {
-        InventoryItem newItem = Instantiate(inventoryItemPrefab, slot.transform);
+        InventoryItem newItem = Instantiate(item.inventoryItemPrefab, slot.transform);
         newItem.InitializeItem(item);
     }
 

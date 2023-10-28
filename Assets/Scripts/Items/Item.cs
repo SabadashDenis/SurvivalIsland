@@ -1,12 +1,16 @@
 using System;
+using PickUpItems;
 using UnityEngine;
+using UsableItems;
 
 [CreateAssetMenu(menuName = "SurvivalIsland/Item")]
 [Serializable]
 public class Item : ScriptableObject
 {
-    [Header("Gameplay Only")] public GameObject pickUpPrefab;
-    public GameObject gameItemPrefab;
+    [Header("Gameplay Only")] 
+    public PickUpItem pickUpPrefab;
+    public InventoryItem inventoryItemPrefab;
+    public UsableItemBase gameItemPrefab;
 
     [Header("UI Only")]
     public Sprite image;

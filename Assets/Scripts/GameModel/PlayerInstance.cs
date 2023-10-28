@@ -8,9 +8,13 @@ namespace GameModel
         [SerializeField] private InputManager input;
         [SerializeField] private CameraInstance playerCam;
         [SerializeField] private Transform camFollowTarget;
-        [FormerlySerializedAs("inventory")] [SerializeField] private InventoryManager inventoryManager;
+        [SerializeField] private InventoryManager inventoryManager;
+        [SerializeField] private Transform itemAttachPoint;
         [SerializeField] private float runSpeed = 2f;
 
+        public InventoryManager GetInventoryManager => inventoryManager;
+        public Transform GetItemAttachPoint => itemAttachPoint;
+        
         protected override void Init()
         {
             base.Init();
