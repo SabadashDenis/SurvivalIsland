@@ -15,4 +15,9 @@ public class AnimationController : MonoBehaviour
     {
         animator.Play("Jump");
     }
+
+    public void Attack()
+    {
+        animator.Play("Melee Attack");
+    }
 }

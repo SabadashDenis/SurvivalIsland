@@ -43,6 +43,11 @@ namespace GameModel
             if (Cursor.lockState == CursorLockMode.Locked)
                 RotatePlayer();
 
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Attack();
+            }
+
             playerCam.FollowTarget(camFollowTarget);
         }
 

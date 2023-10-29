@@ -17,5 +17,10 @@ namespace GameModel
             base.Jump();
             animController.Jump();
         }
+
+        protected void Attack()
+        {
+            animController.Attack();
+        }
     }
 }
