@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UsableItems;
@@ -19,14 +18,21 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+        // select item
         if (Input.inputString != null)
         {
             bool isNumber = int.TryParse(Input.inputString, out int number);
-            if(isNumber && number > 0 && number < 10)
+            if (isNumber && number > 0 && number < 10)
                 ChangeSelectedSlot(number - 1);
-            
-            if(isNumber && number == 0)
+
+            if (isNumber && number == 0)
                 ChangeSelectedSlot(9);
+        }
+
+        // drop item
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GetSelectedItem(true);
         }
     }
 
@@ -40,15 +46,21 @@ public class InventoryManager : MonoBehaviour
         inventorySlots[slotIndex].Select();
         selectedSlot = slotIndex;
 
+        SpawnGameItem();
+    }
+
+    private void SpawnGameItem()
+    {
         var item = GetSelectedItem();
+
+        if (selectedItem != null)
+        {
+            Destroy(selectedItem.gameObject);
+            selectedItem = null;
+        }
+
         if (item != null)
         {
-            if (selectedItem != null)
-            {
-                Destroy(selectedItem.gameObject);
-                selectedItem = null;
-            }
-
             selectedItem = Instantiate(item.gameItemPrefab, GameReferences.I.GetPlayer.GetItemAttachPoint);
         }
     }
@@ -63,9 +75,10 @@ public class InventoryManager : MonoBehaviour
                 return true;
             }
 
-            if ( slot.transform.childCount > 0 && slot.transform.GetChild(0).TryGetComponent(out InventoryItem slotItem))
+            if (slot.transform.childCount > 0 && slot.transform.GetChild(0).TryGetComponent(out InventoryItem slotItem))
             {
-                if (item.inventoryItemPrefab == slotItem && item.isStackable && slotItem.CurrentItemCount < maxStackCount)
+                if (item.inventoryItemPrefab == slotItem && item.isStackable &&
+                    slotItem.CurrentItemCount < maxStackCount)
                 {
                     slotItem.CurrentItemCount++;
                     slotItem.RefreshCount();
@@ -82,7 +95,7 @@ public class InventoryManager : MonoBehaviour
     {
         InventoryItem newItem = Instantiate(item.inventoryItemPrefab, slot.transform);
         newItem.RefreshCount();
-        //newItem.InitializeItem(item);
+        SpawnGameItem();
     }
 
     public Item GetSelectedItem(bool useItem = false)
@@ -99,6 +112,13 @@ public class InventoryManager : MonoBehaviour
                 if (itemInSlot.CurrentItemCount <= 0)
                 {
                     Destroy(itemInSlot.gameObject);
+                    
+                    var player = GameReferences.I.GetPlayer;
+                    if (player.GetItemAttachPoint.childCount > 0)
+                    {
+                        Destroy(player.GetItemAttachPoint.GetChild(0).gameObject);
+                        Instantiate(itemInSlot.Item.pickUpPrefab, player.GetItemAttachPoint.position, Quaternion.identity);
+                    }
                 }
                 else
                 {

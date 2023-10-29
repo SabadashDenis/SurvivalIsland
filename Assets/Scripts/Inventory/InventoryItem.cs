@@ -20,13 +20,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         set => currentItemCount = value;
     }
 
-    /*public void InitializeItem(Item newItem)
-    {
-        Item = newItem;
-        image.sprite = newItem.image;
-        RefreshCount();
-    }*/
-
     public void RefreshCount()
     {
         itemCountText.text = currentItemCount.ToString();
