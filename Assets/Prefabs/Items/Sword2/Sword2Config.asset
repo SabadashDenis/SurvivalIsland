@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d7c4aa64d474f85af879741cbbe9d08, type: 3}
-  m_Name: SwordConfig
+  m_Name: Sword2Config
   m_EditorClassIdentifier: 
-  pickUpPrefab: {fileID: 4738473550864633979, guid: 83bc44e190844ba44896008c9103f50d, type: 3}
-  inventoryItemPrefab: {fileID: 4663754191640571514, guid: b97535f96c3848b4f8a64854768891e3, type: 3}
-  gameItemPrefab: {fileID: 8255471409973583238, guid: f59029c6a5fb1044aada08cbff16edf5, type: 3}
+  pickUpPrefab: {fileID: 4738473550864633979, guid: a90a448632ea16a4fa4df7b8c2b78536, type: 3}
+  inventoryItemPrefab: {fileID: 4663754191640571514, guid: 8df193ae7d5baaa43944f99035e151ab, type: 3}
+  gameItemPrefab: {fileID: 8255471409973583238, guid: f62ce8590e75f354294515d04a5d5b0d, type: 3}
   image: {fileID: 21300000, guid: 253557151208394479a87c897f46f7d9, type: 3}
   isStackable: 1

@@ -7,13 +7,23 @@ namespace PickUpItems
 {
     public class PickUpItem : MonoBehaviour
     {
-        [SerializeField] private int storageIndex = -1;
-        public Item GetItem => GameReferences.I.GetReferences.GetItemsStorage.GetItem(storageIndex);
+        public Item Item;
+        public Rigidbody rb;
         
+        private PlayerInstance nearbyPlayer;
 
-        public void TryPickUp(PlayerInstance player)
+        private void Update()
         {
-            if (player.GetInventoryManager.AddItem(GetItem))
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if(nearbyPlayer != null)
+                    TryPickUp(nearbyPlayer);
+            }
+        }
+
+        private void TryPickUp(PlayerInstance player)
+        {
+            if (player.GetInventoryManager.AddItem(Item))
                 Destroy(gameObject);
         }
 
@@ -21,8 +31,15 @@ namespace PickUpItems
         {
             if (other.TryGetComponent(out PlayerInstance player))
             {
-                if (player.GetInventoryManager.AddItem(GetItem))
-                    Destroy(gameObject);
+                nearbyPlayer = player;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(out PlayerInstance player))
+            {
+                nearbyPlayer = null;
             }
         }
     }

@@ -7,14 +7,11 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public Item Item;
     [SerializeField] private Image image;
     [SerializeField] private Text itemCountText;
     private int currentItemCount = 1;
     private Transform parentAfterDrag;
-    
-    private Item item;
-    public Item GetCurrentItem => item;
-    
 
     public void SetParent(Transform newParent) => parentAfterDrag = newParent;
     public int CurrentItemCount
@@ -23,12 +20,12 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         set => currentItemCount = value;
     }
 
-    public void InitializeItem(Item newItem)
+    /*public void InitializeItem(Item newItem)
     {
-        item = newItem;
+        Item = newItem;
         image.sprite = newItem.image;
         RefreshCount();
-    }
+    }*/
 
     public void RefreshCount()
     {

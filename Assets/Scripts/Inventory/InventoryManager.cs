@@ -81,7 +81,8 @@ public class InventoryManager : MonoBehaviour
     private void SpawnNewItem(Item item, InventorySlot slot)
     {
         InventoryItem newItem = Instantiate(item.inventoryItemPrefab, slot.transform);
-        newItem.InitializeItem(item);
+        newItem.RefreshCount();
+        //newItem.InitializeItem(item);
     }
 
     public Item GetSelectedItem(bool useItem = false)
@@ -90,7 +91,7 @@ public class InventoryManager : MonoBehaviour
             return null;
 
         InventorySlot slot = inventorySlots[selectedSlot];
-        if (slot.transform.GetChild(0).TryGetComponent(out InventoryItem itemInSlot))
+        if (slot.transform.childCount > 0 && slot.transform.GetChild(0).TryGetComponent(out InventoryItem itemInSlot))
         {
             if (useItem)
             {
@@ -105,7 +106,7 @@ public class InventoryManager : MonoBehaviour
                 }
             }
 
-            return itemInSlot.GetCurrentItem;
+            return itemInSlot.Item;
         }
 
         return null;

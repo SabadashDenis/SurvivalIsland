@@ -13,7 +13,6 @@ public class Item : ScriptableObject
     public UsableItemBase gameItemPrefab;
 
     [Header("UI Only")]
-    public Sprite image;
     public bool isStackable;
 }
 
